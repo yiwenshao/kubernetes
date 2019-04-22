@@ -47,7 +47,7 @@ func WithAuthorization(handler http.Handler, a authorizer.Authorizer, s runtime.
 		klog.Warningf("Authorization is disabled")
 		return handler
 	}
-	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+	return http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) { //adapter: https://golang.org/pkg/net/http/#HandlerFunc
 		ctx := req.Context()
 		ae := request.AuditEventFrom(ctx)
 

@@ -93,7 +93,7 @@ func NewAPIServerHandler(name string, s runtime.NegotiatedSerializer, handlerCha
 	}
 
 	return &APIServerHandler{
-		FullHandlerChain:   handlerChainBuilder(director),
+		FullHandlerChain:   handlerChainBuilder(director),  //+tag: still a http.Handler struct,but many filters has been added to be applied
 		GoRestfulContainer: gorestfulContainer,
 		NonGoRestfulMux:    nonGoRestfulMux,
 		Director:           director,
@@ -113,7 +113,7 @@ func (a *APIServerHandler) ListedPaths() []string {
 	return handledPaths
 }
 
-type director struct {
+type director struct { //+tag: can be used as http.Handler since it implements ServeHTTP
 	name               string
 	goRestfulContainer *restful.Container
 	nonGoRestfulMux    *mux.PathRecorderMux
